@@ -2,4 +2,28 @@
 
 A React Query 'Rick and Morty' API client in TypeScript.
 
-_(under construction)_
+### Setup
+
+Fork/clone the repo, then
+
+```
+npm i
+```
+
+### Install React Query if necessary
+
+```
+npm i react-query
+```
+
+### Running
+
+```
+npm run dev
+```
+
+### Building
+
+```
+npm run build
+```
