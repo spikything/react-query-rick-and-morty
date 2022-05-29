@@ -1,54 +1,46 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
+import { ICharacter, IResult } from "../interfaces";
+import Character from "./Character";
 
 export default function Characters():ReactElement {
 
-    interface Result {
-        info:object
-        results:Array<ICharacter>
+    const [page, setPage] = useState(1)
+
+    const getCharacters = async ({queryKey}: {queryKey:Array<unknown>}) => {
+        const response = await fetch(`https://rickandmortyapi.com/api/character?page=${queryKey[1]}`)
+        return response.json()
     }
 
-    interface ICharacter {
-        id:number
-        name:string
-        status:string
-        image:string
-        [key:string]:any
+    const {data, status, isPreviousData, isLoading, isError} = useQuery(['characters', page], getCharacters, {keepPreviousData: true})
+
+    if (isLoading) {
+        return <div className="loading">Loading...</div>
     }
 
-    const getCharacters = async () => {
-        const response = await fetch('https://rickandmortyapi.com/api/character')
-        return response.json();
-    }
-
-    const {data, status} = useQuery('characters', getCharacters)
-
-    if (status === 'loading') {
-        return <div>Loading...</div>
-    }
-
-    if (status === 'error') {
-        return <div>ERROR!</div>
+    if (isError) {
+        return <div className="loading error">ERROR!</div>
     }
 
     if (data) {
 
-        return <ul>
-            Characters: {data.results.length}
-            <br />
-            <br />
+        let resultData = data as IResult
+
+        return <>
+            <div className="buttonContainer">
+                Page {page} of {resultData.info.pages}
+                <button disabled={isPreviousData || page===1} onClick={() => {setPage(page - 1)}}>Previous</button>
+                <button disabled={isPreviousData || !resultData.info.next} onClick={() => {setPage(page + 1)}}>Next</button>
+            </div>
+            <div className="characters">
             {
-                data.results.map(
+                resultData.results.map(
                     (char:ICharacter, idx:number) => 
-                    <li key={char.id}>
-                        <img src={char.image} width='50' />
-                        &nbsp;
-                        {char.name}
-                    </li>
+                    <Character key={idx} character={char} />
                 )
             }
-        </ul>;
-
+            </div>
+        </>
     }
 
     return <div>OTHER UNKNOWN ERROR!</div>

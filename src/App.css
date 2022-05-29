@@ -1,14 +1,104 @@
 .App {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0;
+  margin: 0;
 }
 
-ul {
-  list-style: none;
+h1 {
+  padding: 0;
+  margin: 0 1rem;
+  color: white;
+  font-size: 3rem;
+}
+
+.buttonContainer {
+  margin: 1rem;
+  color: white;
+  font-size: 1.25rem;
+}
+
+button {
+  border-radius: 0.75rem;
+  color: white;
+  background-color: rgb(54, 54, 71);
+  font-size: 1.25rem;
+  margin: 1rem;
+  width: 8rem;
+  height: 4rem;
+  cursor: pointer;
+  -webkit-box-shadow: 4px 4px 12px 1px rgba(0,0,0,0.15); 
+  box-shadow: 4px 4px 12px 1px rgba(0,0,0,0.15);
+}
+
+button:disabled {
+  opacity: 0.5;
+}
+
+.loading {
+  background-color: rgb(62, 70, 83);
+  color: white;
+  font-size: 5rem;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.error {
+  color: red;
+}
+
+.characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  width: 18rem;
+  height: 10rem;
+  background: rgb(59, 62, 67);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin: .5rem;
+  display: flex;
+  -webkit-box-shadow: 4px 4px 17px 5px rgba(0,0,0,0.3); 
+  box-shadow: 4px 4px 17px 5px rgba(0,0,0,0.3);
+}
+
+.card img {
+  height: 100%;
+  margin-left: -1rem;
+}
+
+.text-container {
+  padding: .5rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.text-container h4 {
+  font-size: 1rem;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  margin-top: -0.25rem;
+}
+
+.status {
+  margin: 0;
+  font-size: .8rem;
+  margin-bottom: 0.25rem;
+}
+
+.title {
+  color: rgb(188, 196, 206);
+  font-size: .7rem;
+  margin: 0;
 }
