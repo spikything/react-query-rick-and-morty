@@ -1,8 +1,14 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
+import { useQuery } from "react-query";
 
 export default function Characters():ReactElement {
 
-    interface Person {
+    interface Result {
+        info:object
+        results:Array<ICharacter>
+    }
+
+    interface ICharacter {
         id:number
         name:string
         status:string
@@ -10,25 +16,40 @@ export default function Characters():ReactElement {
         [key:string]:any
     }
 
-    const [characters, setCharacters] : [Array<Person>, Function] = useState([]);
-
     const getCharacters = async () => {
         const response = await fetch('https://rickandmortyapi.com/api/character')
-        const data = await response.json()
-        setCharacters(data?.results as Array<Person>)
+        return response.json();
     }
 
-    useEffect(() => {
-        getCharacters()
-    }, [])
+    const {data, status} = useQuery('characters', getCharacters)
 
-    return <ul>
-        {characters.length ? (
-            characters.map(
-                    (char, idx) => 
-                    <li key={char.id}>{char.name}</li>
+    if (status === 'loading') {
+        return <div>Loading...</div>
+    }
+
+    if (status === 'error') {
+        return <div>ERROR!</div>
+    }
+
+    if (data) {
+
+        return <ul>
+            Characters: {data.results.length}
+            <br />
+            <br />
+            {
+                data.results.map(
+                    (char:ICharacter, idx:number) => 
+                    <li key={char.id}>
+                        <img src={char.image} width='50' />
+                        &nbsp;
+                        {char.name}
+                    </li>
                 )
-        ) : 'Loading...'
-        }
-    </ul>;
+            }
+        </ul>;
+
+    }
+
+    return <div>OTHER UNKNOWN ERROR!</div>
 }
