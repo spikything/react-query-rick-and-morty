@@ -12,6 +12,9 @@ export default function Character({character}: {character:ICharacter}) {
                 <p className="status">
                     { (character.species === 'Human' ? '🧑' : character.species === 'Alien' ? '👽' : '❔') + ' ' + character.species }
                 </p>
+                <p className="status">
+                    { (character.gender === 'Male' ? '👦' : character.gender === 'Female' ? '👧' : '❔') + ' ' + character.gender }
+                </p>
                 <p className="title">
                     <strong>From:</strong> {character.origin.name}
                 </p>
