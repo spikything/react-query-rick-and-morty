@@ -1,4 +1,4 @@
-import { ICharacter, IResult } from "../interfaces";
+import { ICharacter } from "../interfaces";
 
 export default function Character({character}: {character:ICharacter}) {
     return (

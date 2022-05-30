@@ -17,6 +17,10 @@ h1 {
   font-size: 1.25rem;
 }
 
+.buttonContainer p {
+  margin-top: 0;
+}
+
 button {
   border-radius: 0.75rem;
   color: white;

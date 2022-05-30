@@ -1,13 +1,13 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { useQuery } from "react-query";
 import { ICharacter, IResult } from "../interfaces";
 import Character from "./Character";
 import Checkbox from "./Checkbox";
 import Radiobox from "./Radiobox";
 
-export default function Characters():ReactElement {
+export default function Characters({endpoint} : {endpoint:string}):ReactElement {
 
-    const [page, setPage] = useState(12)
+    const [page, setPage] = useState(1)
     const [filterStatus, setFilterStatus] = useState(false)
     const [humanStatus, setHumanStatus] = useState(false)
     const [gender, setGenderStatus] = useState(0)
@@ -16,8 +16,7 @@ export default function Characters():ReactElement {
         let aliveStatus = filterStatus ? 'alive' : '';
         let speciesStatus = humanStatus ? 'human' : '';
         let genderStatus = gender === 0 ? '' : gender === 1 ? 'male' : 'female'
-        // genderStatus = 'female'
-        const response = await fetch(`https://rickandmortyapi.com/api/character?page=${queryKey[1]}&status=${aliveStatus}&species=${speciesStatus}&gender=${genderStatus}`)
+        const response = await fetch(`${endpoint}?page=${queryKey[1]}&status=${aliveStatus}&species=${speciesStatus}&gender=${genderStatus}`)
 
         if (response.status !== 200)
         {
@@ -55,7 +54,7 @@ export default function Characters():ReactElement {
                 <Radiobox label="All" name="gender" value={0} isChecked={gender===0} onChange={() => {setGenderStatus(0)}} />
                 <Radiobox label="Male" name="gender" value={1} isChecked={gender===1} onChange={() => {setGenderStatus(1)}} />
                 <Radiobox label="Female" name="gender" value={-1} isChecked={gender===-1} onChange={() => {setGenderStatus(-1)}} />
-                Page {page} of {resultData.info.pages}
+                <p>Page {page} of {resultData.info.pages}</p>
             </div>
             <div className="characters">
             {
