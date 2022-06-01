@@ -2,7 +2,7 @@ import { ICharacter } from "../interfaces";
 
 export default function Character({character}: {character:ICharacter}) {
     return (
-        <div className="card">
+        <div className="card" data-testid="card">
             <img src={character.image} />
             <div className="text-container">
                 <h4>{character.name}</h4>

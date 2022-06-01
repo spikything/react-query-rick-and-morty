@@ -14,5 +14,7 @@ export interface ICharacter {
     status:string
     species:string
     image:string
+    origin:any
+    location:any
     [key:string]:any // for all the other props
 }
